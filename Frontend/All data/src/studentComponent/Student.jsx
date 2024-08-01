@@ -1,50 +1,70 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
-import html2canvas from 'html2canvas'
-function Student() {
-let [rollNumber,setrollNumber] = useState("")
-let [studentCard,setstudentCard] = useState(null)
+import html2canvas from 'html2canvas';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import './Studentportal/Student.css'
 
-const handleSubmit = (e) =>{
-    e.preventDefault()
+function Student() {
+  let [rollNumber, setRollNumber] = useState("");
+  let [studentCard, setStudentCard] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // fetch student api
- fetch(`http://localhost:5000/api/users/studentCard/${rollNumber}`)
-    .then(data => data.json())
-    .then(data => setstudentCard(data))
-}
-function saveCard() {
-const getElement = document.getElementById("student-card")
-html2canvas(getElement).then((canvas) => {
-    canvas.toBlob(blob => saveAs(blob , "student-card.png"))
-})
-}
-    return (
-        <div>
-        <h1>Student Portal</h1>
-        <form onSubmit={handleSubmit}>
-          <input
+    fetch(`http://localhost:5000/api/users/studentCard/${rollNumber}`)
+      .then(data => data.json())
+      .then(data =>{if (!data.rollno) {
+        alert("Some fields are empty in the student data.");
+      } else{
+        setStudentCard(data)
+      }
+      setRollNumber("")
+      });
+  };
+
+  const saveCard = () => {
+    const getElement = document.getElementById("student-card");
+    html2canvas(getElement).then((canvas) => {
+      canvas.toBlob(blob => saveAs(blob, "student-card.png"));
+    });
+  };
+
+  return (
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Student Portal</h1>
+      <Form onSubmit={handleSubmit} className="mb-4">
+        <Form.Group className="mb-3" controlId="formRollNumber">
+          <Form.Control
             type="text"
             placeholder="Enter your roll number"
             value={rollNumber}
-            onChange={(e) => setrollNumber(e.target.value)}
+            onChange={(e) => setRollNumber(e.target.value)}
             required
           />
-          <button type="submit">View Card</button>
-        </form>
-  
-        {studentCard && (
-        <div id='student-card' style={{border:"2px solid black"}}>
-          <h2>Student Card</h2>
-          <p>Name : {studentCard.name}</p>
-          <p>Course : {studentCard.course}</p>
-          <p>Roll no : {studentCard.rollno} </p>
-          <p>Batch Number: {studentCard.batch}</p>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          View Card
+        </Button>
+      </Form>
+
+      {studentCard && (
+        <div id="student-card" className="student-card">
+          <h2 className="text-center">Identity Card</h2>
+          <p><strong>Name:</strong> {studentCard.name}</p>
+          <p><strong>Course:</strong> {studentCard.course}</p>
+          <p><strong>Roll no:</strong> {studentCard.rollno}</p>
+          <p><strong>Batch Number:</strong> {studentCard.batch}</p>
           {/* Add more fields as necessary */}
         </div>
       )}
-<button onClick={saveCard}>save</button>
-      </div>
-  )
+      {studentCard && (
+        <div className="text-center mt-3">
+          <Button variant="success" onClick={saveCard}>Save</Button>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default Student
+export default Student;

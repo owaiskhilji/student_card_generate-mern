@@ -15,9 +15,7 @@ const userSchema = Schema (
 
         batch :{
             type : Number,
-            
-            
-},
+            },
 rollno :{
     type:Number,
     unique: true,
@@ -25,6 +23,7 @@ rollno :{
     minlength: 6,
     maxlength: 6,   
 }
+
     },{timeStamp: true}
 )
 

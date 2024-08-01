@@ -2,9 +2,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom/dist';
+
 function Bar() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" bg="primary" variant="dark">
       <Container fluid>
         <Navbar.Brand href="#">Students Generate Cards</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -15,11 +16,10 @@ function Bar() {
             navbarScroll
           >
             <Nav.Link as={Link} to="/">Generate Card</Nav.Link>
-            <Nav.Link as={Link} to="/read" >All Card</Nav.Link>
-            <Nav.Link as={Link} to="/student" >student portal</Nav.Link>
-         
+            <Nav.Link as={Link} to="/read">All Card</Nav.Link>
+            <Nav.Link as={Link} to="/student">Student Portal</Nav.Link>
           </Nav>
-                 </Navbar.Collapse>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

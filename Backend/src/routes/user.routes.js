@@ -1,20 +1,22 @@
 
 import express from "express"
 import { User } from "../modals/user.modals.js"
+
 const router = express.Router()
 
 // create data
 router.post("/",async(req,res)=>{
     try{
-    const{name,course,batch,rollno} = req.body
-    if (!name || !course || !batch || !rollno) {
+    const {name,course,batch,rollno} = req.body
+    
+    if (!name || !course || !batch || !rollno ) {
     res.status(400).json({error : "Missing requird feilds"})    
     }
     const userAdd = await User.create({
         name : name,
         course : course,
         batch : batch,
-        rollno : rollno
+        rollno : rollno,
     })
     res.status(201).json(userAdd)
 }

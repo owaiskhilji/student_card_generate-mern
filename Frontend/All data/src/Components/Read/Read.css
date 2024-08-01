@@ -1,0 +1,24 @@
+
+.user-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-card .card-body {
+    background-color: #ffffff;
+    padding: 1.5rem;
+  }
+  
+  .user-card .card-footer {
+    background-color: #f1f1f1;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .container {
+    background-color: #e9ecef;
+    padding: 2rem;
+    border-radius: 0.25rem;
+  }
+  
